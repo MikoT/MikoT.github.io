@@ -5,6 +5,48 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
+    <script id='B_A0UoWGUFqGBkimmVkftg' type='text/javascript'>
+      function getVyPlayer() {
+        var url = window.location.href;
+        var queryParams = url.split('?');
+        if (queryParams.length < 2) { return null; }
+
+        var vyPlayerId = null;
+        var params = queryParams[1].split('&');
+        params.some(function(p) {
+          if (p.indexOf('vy-player') !== -1) {
+            vyPlayerId = p.split('=')[1];
+          }
+          return vyPlayerId !== null;
+        });
+        return vyPlayerId;
+      }
+
+      function startVyPlayer(id) {
+        if (!id) { return; }
+        var fnName = 'fn_vidyard_' + id;
+        if (window[fnName]) { window[fnName](true); }
+      }
+
+      function injectVyPlayer(id) {
+        if (!id) { return; }
+        var h = document.getElementsByTagName('head')[0];
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.id = 'vidyard_embed_code_' + id;
+        s.src = '//play-staging-aquaman.vidyard.com/' + id + '.js?v=3.1.1&type=lightbox';
+        s.onload = function() {
+          startVyPlayer(id);
+        }
+        h.appendChild(s);
+      }
+
+      window.onload = function() {
+        injectVyPlayer(getVyPlayer());
+      }
+    </script>
+
     <script type="text/javascript" id="vidyard_embed_code_d9qNpMCjabV7G4yBFdnRzZ" src="//play.vidyard.dev/d9qNpMCjabV7G4yBFdnRzZ.js?v=3.1.1&type=lightbox"></script><div class="outer_vidyard_wrapper"><div class="vidyard_wrapper" onclick="fn_vidyard_d9qNpMCjabV7G4yBFdnRzZ();"><img width="360" src="//play.vidyard.dev/d9qNpMCjabV7G4yBFdnRzZ.jpg?" alt="5 BRILLIANT Fight Scenes in Anime"><div class="vidyard_play_button"><a href="javascript:void(0);"></a></div></div></div>
 
     <div class="container">
